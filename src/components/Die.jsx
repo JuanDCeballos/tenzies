@@ -1,6 +1,6 @@
-const Die = ({ value }) => {
+const Die = ({ value, isHeld }) => {
   return (
-    <div className='die'>
+    <div className={`die ${isHeld ? 'held' : 'no-held'}`}>
       <p>{value}</p>
     </div>
   );
