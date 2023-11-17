@@ -39,7 +39,7 @@ const App = () => {
         </div>
         <div className='dies-container'>
           {dice.map((die) => (
-            <Die key={die.id} value={die.value} />
+            <Die key={die.id} value={die.value} isHeld={die.isHeld} />
           ))}
         </div>
         <button className='cta' onClick={rollDice}>
