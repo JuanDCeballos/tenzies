@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Karla:wght@700&display=swap');
 
-/* font-family: 'Inter', sans-serif;
-font-family: 'Karla', sans-serif; */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -32,6 +29,22 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.game-description {
+  text-align: center;
+}
+
+.game-description h1 {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.game-description p {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: lighter;
+  color: #4a4e74;
 }
 
 .dies-container {
