@@ -5,6 +5,11 @@ import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti';
 
 const App = () => {
+  const [currentRolls, setCurrentRolls] = useState(0);
+  const [bestRoll, setBestRoll] = useState(
+    () => JSON.parse(localStorage.getItem('allTimeBest')) || 0
+  );
+
   const randomNumber = () => Math.floor(Math.random() * (6 - 1 + 1) + 1);
 
   const generateNewDie = () => {
@@ -30,9 +35,11 @@ const App = () => {
           return die.isHeld ? die : generateNewDie();
         })
       );
+      setCurrentRolls((prevRoll) => prevRoll + 1);
     } else {
       setTenzies(false);
       setDice(allNewDice());
+      setCurrentRolls(0);
     }
   };
 
@@ -52,9 +59,19 @@ const App = () => {
     const firstValue = dice[0].value;
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
+      if (bestRoll === 0) {
+        setBestRoll(currentRolls);
+      } else if (currentRolls < bestRoll) {
+        setBestRoll(currentRolls);
+      }
+
       setTenzies(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    localStorage.setItem('allTimeBest', JSON.stringify(bestRoll));
+  }, [bestRoll]);
 
   return (
     <div className='container'>
@@ -66,6 +83,13 @@ const App = () => {
             Roll until all dice are the same. Click each die to freeze it at its
             current value between rolls.
           </p>
+        </div>
+        <div className='game-stats'>
+          <h2>Number of Rolls</h2>
+          <div className='rolls-container'>
+            <p>Current {currentRolls}</p>
+            <p>All time best {bestRoll}</p>
+          </div>
         </div>
         <div className='dies-container'>
           {dice.map((die) => (
